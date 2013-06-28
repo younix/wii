@@ -31,20 +31,20 @@
 	}
 
 	function get_output() {
-		http_out.onreadystatechange = input_event;
+		http_out.onreadystatechange = in_event;
 		http_out.open("GET", "out", true);
 		range = "bytes=" + offset.toString() + "-";
 		http_out.setRequestHeader("Range", range);
 		http_out.send();
 	}
 
-	function submit_input(key) {
-		var text = document.getElementById("in").value + '\n';
+	function submit_input() {
+		var msg = document.getElementById("in").value + '\n';
 		document.getElementById("in").value = "";
 
-		http_in.onreadystatechange = http_event;
+		http_in.onreadystatechange = out_event;
 		http_in.open("POST", "/cgi/in.cgi", true);
-		http_in.send(text);
+		http_in.send(msg);
 	}
 	</script>
 </head>
