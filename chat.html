@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ii webchat</title>
+	<script>
+	var http_in = new XMLHttpRequest();
+	var http_out = new XMLHttpRequest();
+	var offset = 0;
+
+	function in_event() {
+		if (http_in.status != 416 ||	// no new content
+		    http_in.status != 206 ||	// incomplet content
+		    http_in.status != 200) {	// ok!
+			alert("state: " + http_in.readyState + "\n" +
+			      "status: " + http_in.status);
+			return;
+		}
+
+		if (xmlhttp.readyState == 4) {
+			offset += parseInt(xmlhttp.getResponseHeader("Content-Length"));
+			out_area = document.getElementById("out");
+			out_area.value += xmlhttp.responseText;
+			out_area.scrollTop = out_area.scrollHeight;
+		}
+	}
+
+	function out_event() {
+		if (xmlhttp.status != 200)
+			alert("state: " + xmlhttp.readyState + "\n" +
+			      "status: " + xmlhttp.status);
+	}
+
+	function get_input() {
+		xmlhttp.onreadystatechange = input_event;
+		xmlhttp.open("GET", "out", true);
+		range = "bytes=" + offset.toString() + "-";
+		xmlhttp.setRequestHeader("Range", range);
+		xmlhttp.send();
+	}
+
+	function submit_input(key) {
+		var text = document.getElementById("in").value + '\n';
+		document.getElementById("in").value = "";
+
+		xmlhttp.onreadystatechange = http_event;
+		xmlhttp.open("POST", "/cgi/in.cgi", true);
+		xmlhttp.send(text);
+	}
+	</script>
+</head>
+<body>
+	<textarea id="out" readonly="readonly" rows="25" cols="80"></textarea>
+	<br />
+	<input id="in" type="text" autofocus="autofocus" />
+	<input id="submit" type="submit" value="send" onClick="submit_input()" />
+
+	<script>setInterval(get_input, 500);</script>
+</body>
+</html>
