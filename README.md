@@ -1,4 +1,4 @@
 wii
 ===
 
-Web client for Irc It!
+Simple Web frontend for Irc It!
