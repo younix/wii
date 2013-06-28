@@ -7,31 +7,31 @@
 	var http_out = new XMLHttpRequest();
 	var offset = 0;
 
-	function in_event() {
-		if (http_in.status != 416 ||	// no new content
-		    http_in.status != 206 ||	// incomplet content
-		    http_in.status != 200) {	// ok!
-			alert("state: " + http_in.readyState + "\n" +
-			      "status: " + http_in.status);
-			return;
-		}
+	function out_event() {
+//		if (http_out.status != 416 &&	// no new content
+//		    http_out.status != 206 &&	// incomplet content
+//		    http_out.status != 200) {	// ok!
+//			alert("state: " + http_out.readyState + "\n" +
+//			      "status: " + http_out.status);
+//			return;
+//		}
 
-		if (http_in.readyState == 4) {
-			offset += parseInt(http_in.getResponseHeader("Content-Length"));
+		if (http_out.readyState == 4) {
+			offset += parseInt(http_out.getResponseHeader("Content-Length"));
 			out_area = document.getElementById("out");
-			out_area.value += http_in.responseText;
+			out_area.value += http_out.responseText;
 			out_area.scrollTop = out_area.scrollHeight;
 		}
 	}
 
-	function out_event() {
-		if (http_out.status != 200)
-			alert("state: " + http_out.readyState + "\n" +
-			      "status: " + http_out.status);
+	function in_event() {
+//		if (http_in.status != 200)
+//			alert("state: " + http_in.readyState + "\n" +
+//			      "status: " + http_in.status);
 	}
 
 	function get_output() {
-		http_out.onreadystatechange = in_event;
+		http_out.onreadystatechange = out_event;
 		http_out.open("GET", "out", true);
 		range = "bytes=" + offset.toString() + "-";
 		http_out.setRequestHeader("Range", range);
@@ -42,7 +42,7 @@
 		var msg = document.getElementById("in").value + '\n';
 		document.getElementById("in").value = "";
 
-		http_in.onreadystatechange = out_event;
+		http_in.onreadystatechange = in_event;
 		http_in.open("POST", "/cgi/in.cgi", true);
 		http_in.send(msg);
 	}
