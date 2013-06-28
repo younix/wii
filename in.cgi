@@ -3,7 +3,7 @@
 # disable filename globbing
 set -f
 
-cat - >> out
+cat - >> in
 
 echo Content-type: text/plain
 echo
