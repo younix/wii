@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cat - >> in
+cat - > in
 
 echo Content-type: text/plain
 echo
