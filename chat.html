@@ -16,35 +16,35 @@
 			return;
 		}
 
-		if (xmlhttp.readyState == 4) {
-			offset += parseInt(xmlhttp.getResponseHeader("Content-Length"));
+		if (http_in.readyState == 4) {
+			offset += parseInt(http_in.getResponseHeader("Content-Length"));
 			out_area = document.getElementById("out");
-			out_area.value += xmlhttp.responseText;
+			out_area.value += http_in.responseText;
 			out_area.scrollTop = out_area.scrollHeight;
 		}
 	}
 
 	function out_event() {
-		if (xmlhttp.status != 200)
-			alert("state: " + xmlhttp.readyState + "\n" +
-			      "status: " + xmlhttp.status);
+		if (http_out.status != 200)
+			alert("state: " + http_out.readyState + "\n" +
+			      "status: " + http_out.status);
 	}
 
-	function get_input() {
-		xmlhttp.onreadystatechange = input_event;
-		xmlhttp.open("GET", "out", true);
+	function get_output() {
+		http_out.onreadystatechange = input_event;
+		http_out.open("GET", "out", true);
 		range = "bytes=" + offset.toString() + "-";
-		xmlhttp.setRequestHeader("Range", range);
-		xmlhttp.send();
+		http_out.setRequestHeader("Range", range);
+		http_out.send();
 	}
 
 	function submit_input(key) {
 		var text = document.getElementById("in").value + '\n';
 		document.getElementById("in").value = "";
 
-		xmlhttp.onreadystatechange = http_event;
-		xmlhttp.open("POST", "/cgi/in.cgi", true);
-		xmlhttp.send(text);
+		http_in.onreadystatechange = http_event;
+		http_in.open("POST", "/cgi/in.cgi", true);
+		http_in.send(text);
 	}
 	</script>
 </head>
@@ -54,6 +54,6 @@
 	<input id="in" type="text" autofocus="autofocus" />
 	<input id="submit" type="submit" value="send" onClick="submit_input()" />
 
-	<script>setInterval(get_input, 500);</script>
+	<script>setInterval(get_output, 500);</script>
 </body>
 </html>
