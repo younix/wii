@@ -1,6 +1,6 @@
 #!/bin/sh
 
-RANGE=$(echo $HTTP_RANGE | sed -Ene 's/bytes=([[:digit:]]*)-/\1/p')
+RANGE=$(echo $HTTP_RANGE | sed -Ene 's/^bytes=([[:digit:]]*)-$/\1/p')
 DIFF=0
 
 while [ $DIFF -eq 0 ]; do
