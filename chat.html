@@ -8,31 +8,34 @@
 	var offset = 0;
 
 	function out_event() {
-//		if (http_out.status != 416 &&	// no new content
-//		    http_out.status != 206 &&	// incomplet content
-//		    http_out.status != 200) {	// ok!
-//			alert("state: " + http_out.readyState + "\n" +
-//			      "status: " + http_out.status);
-//			return;
-//		}
+		if (http_out.status != 416 &&	// no new content
+		    http_out.status != 206 &&	// incomplet content
+		    http_out.status != 200 &&	// ok!
+		    http_out.status != 0) {	// some crap in FF
+			alert("state: " + http_out.readyState + "\n" +
+			      "status: " + http_out.status);
+			return;
+		}
 
 		if (http_out.readyState == 4) {
 			offset += parseInt(http_out.getResponseHeader("Content-Length"));
 			out_area = document.getElementById("out");
 			out_area.value += http_out.responseText;
 			out_area.scrollTop = out_area.scrollHeight;
+			get_output();
 		}
 	}
 
 	function in_event() {
-//		if (http_in.status != 200)
-//			alert("state: " + http_in.readyState + "\n" +
-//			      "status: " + http_in.status);
+		if (http_in.status != 200 ||
+		    http_in.status != 0)
+			alert("state: " + http_in.readyState + "\n" +
+			      "status: " + http_in.status);
 	}
 
 	function get_output() {
 		http_out.onreadystatechange = out_event;
-		http_out.open("GET", "out", true);
+		http_out.open("GET", "/cgi/out.cgi", true);
 		range = "bytes=" + offset.toString() + "-";
 		http_out.setRequestHeader("Range", range);
 		http_out.send();
@@ -54,6 +57,8 @@
 	<input id="in" type="text" autofocus="autofocus" />
 	<input id="submit" type="submit" value="send" onClick="submit_input()" />
 
-	<script>setInterval(get_output, 500);</script>
+	<script>//setInterval(get_output, 500);
+		get_output();
+	</script>
 </body>
 </html>
