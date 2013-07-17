@@ -3,12 +3,12 @@
 RANGE=$(echo $HTTP_RANGE | sed -Ene 's/bytes=([[:digit:]]*)-/\1/p')
 DIFF=0
 
-while [ "$DIFF" -eq "0" ]; do
+while [ $DIFF -eq 0 ]; do
 	sleep 0.5
 	DIFF=$(($(stat -Lf '%z' out) - $RANGE))
 done
 
-echo Content-Length: $(($FSIZE - $RANGE))
+echo Content-Length: $DIFF
 echo Content-type: text/plain
 echo
-tail -c $(($FSIZE - $RANGE)) out
+tail -c $DIFF out

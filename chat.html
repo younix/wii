@@ -33,8 +33,18 @@
 			      "status: " + http_in.status);
 	}
 
+	function tmout() {
+		alert("TIMEOUT!!!");
+	}
+
+	function err() {
+		alert("ERROR!!!");
+	}
+
 	function get_output() {
 		http_out.onreadystatechange = out_event;
+		http_out.ontimeout = tmout;
+		http_out.onerror = err;
 		http_out.open("GET", "/cgi/out.cgi", true);
 		range = "bytes=" + offset.toString() + "-";
 		http_out.setRequestHeader("Range", range);
