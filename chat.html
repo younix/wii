@@ -1,50 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ii webchat</title>
-	<script>
-	var http_in = new XMLHttpRequest();
-	var http_out = new XMLHttpRequest();
-	var offset = 0;
-
-	function out_event() {
-		if (http_out.readyState == 4) {
-			if (http_out.status != 500) {
-				offset += parseInt(http_out.getResponseHeader(
-				    "Content-Length"));
-				out_area = document.getElementById("out");
-				out_area.value += http_out.responseText;
-				out_area.scrollTop = out_area.scrollHeight;
-			}
-
-			get_output();
-		}
-	}
-
-	function key(e) {
-		if (e.keyCode == 13)
-			submit_input();
-	}
-
-	function get_output() {
-		http_out.onreadystatechange = out_event;
-		http_out.open("GET", "/cgi/out.cgi", true);
-		range = "bytes=" + offset.toString() + "-";
-		http_out.setRequestHeader("Range", range);
-		http_out.send();
-	}
-
-	function submit_input() {
-		var msg = document.getElementById("in").value + '\n';
-		document.getElementById("in").value = "";
-		http_in.open("POST", "/cgi/in.cgi", true);
-		http_in.send(msg);
-	}
-	</script>
+	<title>Irc It - Web Client</title>
+	<link rel="stylesheet" type="text/css" href="chat.css" />
+	<script src="chat.js"></script>
 </head>
 <body>
 	<textarea id="out" readonly="readonly" rows="25" cols="80"></textarea>
-	<br />
 	<input id="in" type="text" autofocus="autofocus" onkeyup="key(event)" />
 	<input id="submit" type="submit" value="send" onclick="submit_input()" />
 
