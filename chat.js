@@ -5,8 +5,10 @@ var offset = 0;
 function out_event() {
 	if (http_out.readyState == 4) {
 		if (http_out.status != 500) {
-			offset += parseInt(http_out.getResponseHeader(
+			var len = parseInt(http_out.getResponseHeader(
 			    "Content-Length"));
+
+			offset += isNaN(len) ? 0 : len;
 			out_area = document.getElementById("out");
 			out_area.value += http_out.responseText;
 			out_area.scrollTop = out_area.scrollHeight;
@@ -14,11 +16,6 @@ function out_event() {
 
 		get_output();
 	}
-}
-
-function key(e) {
-	if (e.keyCode == 13)
-		submit_input();
 }
 
 function get_output() {
@@ -34,4 +31,9 @@ function submit_input() {
 	document.getElementById("in").value = "";
 	http_in.open("POST", "/cgi/in.cgi", true);
 	http_in.send(msg);
+}
+
+function key(e) {
+	if (e.keyCode == 13)
+		submit_input();
 }
