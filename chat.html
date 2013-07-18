@@ -6,10 +6,12 @@
 	<script src="chat.js"></script>
 </head>
 <body>
+<div id="con">
 	<textarea id="out" readonly="readonly" rows="25" cols="80"></textarea>
-	<input id="in" type="text" autofocus="autofocus" onkeyup="key(event)" />
-	<input id="submit" type="submit" value="send" onclick="submit_input()" />
-
+	<br />
+	<input id="in" type="text" autofocus="autofocus" size="80"
+	    onkeyup="key(event)" />
+</div>
 	<script>get_output();</script>
 </body>
 </html>
