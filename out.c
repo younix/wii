@@ -48,19 +48,19 @@ main(int argv, char**argc)
 	if (lseek(fd, range, SEEK_SET) < 0)
 		goto err;
 
-	/* TODO: libevent for changing */
+	/* TODO: if eof than use libevent to detect file changes */
 
 	printf("Content-Length: %zd\n", diff);
 	printf("Content-type: text/plain\n\n");
 
 	while ((size = read(fd, buf, BUFSIZ)) > 0)
-		write(STDOUT_FILENO, buf, size);
+		if (write(STDOUT_FILENO, buf, size) < 0)
+			goto err;
 
 	if (size < 0)
 		goto err;
 
 	return EXIT_SUCCESS;
-
  err:
 	perror(NULL);
 	return EXIT_FAILURE;
