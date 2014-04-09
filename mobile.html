@@ -6,35 +6,38 @@
 	    user-scalable=no">
 <style>
 .chat {
-	width: 100%;
-	height: 100%;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: box;
+	box-orient: vertical;
+	position: absolute;
+	background-color: #00ff00;
 }
 
 .out {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: -50px;
+	box-flex: 1;
+	flex-grow: 1;
 	resize: none;
+	width: 100%;
+
+	margin: 0;
+	border: 0;
+	font-family: Monospace;
 }
 
 .in {
-	left: 0px;
-	right: 0px;
-	position: absolute;
-	bottom: 0px;
+	width: 100%;
+	margin: 0;
+	border: 0;
 }
 </style>
 </head>
 <body>
 
 <div class="chat">
-<textarea class="out">
+<textarea class="out" readonly="readonly">
 ich: Hallo
 du: Hi
 ich: wie geht es dir?
