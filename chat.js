@@ -37,3 +37,8 @@ function key(e) {
 	if (e.keyCode == 13)
 		submit_input();
 }
+
+window.onload = function(e) {
+	document.getElementById("in").onkeyup = key;
+	get_output();
+}
