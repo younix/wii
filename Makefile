@@ -3,7 +3,7 @@ CFLAGS=-std=c99 -pedantic -Wall
 .PHONY: all clean
 all: in out
 clean:
-	rm -f in out *.o
+	rm -f in out *.o *.core
 
 in: in.o
 	gcc -o $@ in.o
