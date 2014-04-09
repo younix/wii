@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Jan Klemkow <j.klemkow@wemelug.de>
+ * Copyright (c) 2013 - 2014 Jan Klemkow <j.klemkow@wemelug.de>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -30,7 +30,7 @@ main(int argc, char**argv)
 	if ((fd = open(file, O_WRONLY)) < 0)
 		goto err;
 
-	while ((size = read(STDIN_FILENO, buf, BUFSIZ)) > 0)
+	while ((size = read(STDIN_FILENO, buf, sizeof buf)) > 0)
 		if (write(fd, buf, size) < 0)
 			goto err;
 
