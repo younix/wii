@@ -1,49 +1,57 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN"
+    "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
 <html>
 <head>
 	<title>wii - mobile</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href="mobile.css"/>
+	<script src="layout.js"></script>
+
+	<!-- this is for phones -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0,
-	    user-scalable=no">
-<style>
-.chat {
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: box;
-	box-orient: vertical;
-	position: absolute;
-	background-color: #00ff00;
-}
-
-.out {
-	box-flex: 1;
-	flex-grow: 1;
-	resize: none;
-	width: 100%;
-
-	margin: 0;
-	border: 0;
-	font-family: Monospace;
-}
-
-.in {
-	width: 100%;
-	margin: 0;
-	border: 0;
-}
-</style>
+	    user-scalable=no" />
+	<meta name="mobile-web-app-capable" content="yes"/>
+	<link rel="icon" sizes="256x256" href="icon.png"/>
 </head>
 <body>
 
-<div class="chat">
+<div class="chat" id="one">
 <textarea class="out" readonly="readonly">
-ich: Hallo
-du: Hi
-ich: wie geht es dir?
-du: sehr gut und dir?
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
 </textarea>
-	<input type="text" class="in" />
+	<input class="in" type="text" />
+</div>
+
+<div class="chat" id="two" style="display: none;">
+<textarea class="out" readonly="readonly">
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+</textarea>
+	<input class="in" type="text" />
 </div>
 
 </body>
